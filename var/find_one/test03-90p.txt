@@ -1,0 +1,39 @@
+Sun Jul 22 11:48:08 2018
+
+
+Binary Search
+mean: 0.788916
+stdev: 0.0522243
+max: 0.904706
+min: 0.710937
+
+Naive search
+mean: 0.616107
+stdev: 0.0481351
+max: 0.69756
+min: 0.564713
+
+Naive search (loop unrolled)
+mean: 0.59886
+stdev: 0.0387348
+max: 0.693135
+min: 0.535069
+
+Math library log2
+mean: 1.66409
+stdev: 0.064926
+max: 1.7982
+min: 1.55368
+
+Built in ffs
+mean: 0.515072
+stdev: 0.0450475
+max: 0.618345
+min: 0.467636
+
+dummy function
+mean: 0.509949
+stdev: 0.033421
+max: 0.57804
+min: 0.460934
+

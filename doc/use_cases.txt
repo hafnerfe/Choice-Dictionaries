@@ -1,0 +1,10 @@
+Use Cases:
+
+-use Choice Dictionary
+-Benchmark:
+	-profile Choice Dictionaries
+	-create Profiling File
+-Test:
+	-test Choice Dictionary
+	-create Test File
+
