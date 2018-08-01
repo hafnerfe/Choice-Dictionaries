@@ -1,0 +1,85 @@
+Tests: Wie, was und wo.
+
+--------------------------------------------------
+Format:
+-Test Name
+-Test Beschreibung
+-Ziel des Testes
+-Pfad der Profiling File
+-Pfad zur Report File
+-Ergebnis
+--------------------------------------------------
+-Name: test 01: Finden des Flaschenhalses
+-Beschreibung: Herausfinden, welche der 4 Operationen die langsamste ist. 
+	Hier hat das CD einfach eine feste Größe.
+	Um Choice zu testen, wird einmal ein komplett leeres CD und einmal ein halb volles CD und einmal komplett voll betrachtet.
+	Um Contains zu testen, wird einmal wiederholt contains von 1...n auf ein volles und auf ein leeres CD angewandt.
+	Für insert: einfügen wenn Element bereits vorhanden, und einmal 1...n einfügen.
+	Für delete: löschen wenn alle Elemente vorhanden, und wenn keins vorhanden
+
+	PF_1: Wiederholt choice auf leeres CD aufrufen.
+	PF_2: Wiederholt choice auf CD aufrufen mit nur n.
+	PF_3: Wiederholt choice auf CD aufrufen mit nur einer 1 
+		-->Paarung mit n -> alle drei fälle von read durchgehen.
+
+	PF_4: Contains von 1...n auf leeres CD anwenden
+	PF_5: Contains von 1...n auf volles CD anwenden
+
+	PF_6: Insert von 1...n auf leeres CD
+	PF_7: Insert von n...1 auf leeres CD
+	PF_8: Insert von n-1...1 auf leeres CD
+	PF_9: Insert von 1...n auf volles CD (immer nur simple write)
+
+	PF_10: Delete 1...n auf volles CD
+	PF_11: Delete 2...n auf volles CD
+	PF_12: Delete n...1 auf volles CD
+	
+-Ziel: Verständnis für Operationen, herausfinden welche Operation ein Flaschenhals sein könnte.
+
+--------------------------------------------------
+-Name: test 02: Wahl von b.
+-Beschreibung: Herausfinden, welches b am effizientesten ist und ob 'k verstecken' sich lohnt.
+	i,j,k mit i<j<k
+	Testen für b=32 und b=64 und b=64,k_versteckt.
+	-Größe:i, zufällige Operationen:j
+	-Größe:j, zufällige Operationen:j
+	-Größe:k, zufällige Operationen:j
+	-Größe:j, j zufällige Operationen ohne 'choice'
+	-Größe:j, j zufällige Operationen, 
+		choice:50%, delete:30%, insert:10%, contains:10%
+
+--------------------------------------------------
+-Name: test03: Untersuchung der Operationszeiten.
+-Beschreibung: Untersuchen, wie stark sich Operationszeiten mit Größe des CDs ändern
+	
+	i,j,k mit i<j<k
+	
+	-Größe:i, zufällige Operationen:j
+	-Größe:j, zufällige Operationen:j
+	-Größe:k, zufällige Operationen:j
+
+--------------------------------------------------
+-Name: test04: Untersuchung der Operationszeiten.
+-Beschreibung: Untersuchen, wie eine besonders ungünstige Operationsfolge ausschaut.
+
+	-Größe: i, insert n...1, delete 1...n
+	-Größe: i, insert 1...n, delete n...1
+	-Größe: i, insert n-65...1, delete 1...n-65
+
+--------------------------------------------------
+-Name: test05: Untersuchung der Operationszeiten
+-Beschreibung: Weiter ungünstige Operationsfolge vergleichen
+
+	-Größe: i.
+		for (l=n-64; l > 1; l-=64) {
+			insert(l);
+			choice();
+		}
+		for (l=1; l<n-64; l+= 64) {
+			delete(l);
+			choice();
+		}
+	-Genauso wie Fall 1, nur mit l=n am Anfang.
+
+--------------------------------------------------
+-Name: test06 
