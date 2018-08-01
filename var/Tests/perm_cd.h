@@ -1,5 +1,5 @@
 /*
-*	Just defining the usual optimal cd with b=64.
+*
 */
 
 
@@ -13,7 +13,6 @@
 using namespace std;
 
 
-
 // Choice dict (optimal from the paper) with b=64. (b=w)
 class Perm_cd : public Choice_dictionary{
 		_t::len_t *permutation, *inverse_permutation;
@@ -25,8 +24,8 @@ class Perm_cd : public Choice_dictionary{
 			permutation(nullptr),
 			inverse_permutation(nullptr),
 			k(0) {
-			permutation=(_t::len_t*) malloc(sizeof(_t::len_t)*n);
-			inverse_permutation=(_t::len_t*) malloc(sizeof(_t::len_t)*n);
+			permutation=(_t::len_t*) malloc(sizeof(_t::len_t)*(n));
+			inverse_permutation=(_t::len_t*) malloc(sizeof(_t::len_t)*(n));
 		}
 		~Perm_cd() {
 			if (inverse_permutation != nullptr)
@@ -36,27 +35,27 @@ class Perm_cd : public Choice_dictionary{
 		}
 		void insert(_t::len_t l) override {
 			if (!contains(l)) {
-				permutation[k]=l;
-				inverse_permutation[l]=k;
+				permutation[k]=l-1;
+				inverse_permutation[l-1]=k;
 				++k;
 			}
 		}
 		void del(_t::len_t l) override {
 			if (contains(l)) {
-				permutation[inverse_permutation[l]]=permutation[--k];
-				inverse_permutation[permutation[k]]=inverse_permutation[l];
+				permutation[inverse_permutation[l-1]]=permutation[--k];
+				inverse_permutation[permutation[k]]=inverse_permutation[l-1];
 			}
 		}
 		bool contains(_t::len_t l) override {
-			auto new_i=inverse_permutation[l];
-			if (new_i<k && permutation[new_i]==l)
+			auto new_i=inverse_permutation[l-1];
+			if (new_i<k && permutation[new_i]==l-1)
 				return true;
 			return false;
 		}
 		_t::len_t choice() override {
 			if (k==0)
 				return 0;
-			return permutation[0];
+			return permutation[0]+1;
 		}
 		void init(_t::len_t n) override {
 			k=0;
